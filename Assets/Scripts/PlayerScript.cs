@@ -1,18 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Animator animator;
+    private GameObject fighter;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        fighter = gameObject;
+        animator.Play("Idle");
     }
 }
