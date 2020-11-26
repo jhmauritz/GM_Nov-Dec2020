@@ -19,7 +19,7 @@
                     "id": "42a10f86-806f-4115-a27a-2f81fa6b1b20",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "PickUpItem",
@@ -62,7 +62,7 @@
                     "name": "",
                     "id": "9cc32c74-1d5b-4c38-b3fa-a1db93b1d556",
                     "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Controller",
                     "action": "Punch/Use",

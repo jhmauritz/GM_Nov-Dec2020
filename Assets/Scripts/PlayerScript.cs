@@ -26,13 +26,14 @@ public class PlayerScript : MonoBehaviour
     private bool duck = false;
     private bool attack = false;
     private bool pickUp = false;
+    public bool hasItem = false;
 
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
-        animator.Play("Idle");
     }
 
+    #region INPUTSYSTEMFUNCTIONS
     public void OnMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
@@ -57,9 +58,14 @@ public class PlayerScript : MonoBehaviour
     {
         attack = context.action.triggered;
     }
+    #endregion
     
     void Update()
     {
+        #region MOVEMENT_FUNCTIONING
+        float moveX = movementInput.x * movementInput.x;
+        animator.SetFloat("Blend", moveX);
+        
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -82,14 +88,21 @@ public class PlayerScript : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+        
 
-        if (controller.velocity.magnitude > 0f)
+        #endregion
+
+        if (!hasItem && attack)
         {
-            animator.SetBool("Walk Forward", true);
+            animator.SetBool("PunchTrigger", true);
+            StartCoroutine(PunchBoolSet());
+            attack = false;
         }
-        else if (controller.velocity.magnitude <= 0f)
-        {
-            animator.SetBool("Walk Forward", false);
-        }
+    }
+
+    IEnumerator PunchBoolSet()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("PunchTrigger", false);
     }
 }
