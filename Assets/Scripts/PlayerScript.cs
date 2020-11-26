@@ -9,13 +9,15 @@ public class PlayerScript : MonoBehaviour
 {
     public Animator animator;
     public GameObject fighter;
-    
+
     [SerializeField]
     private float playerSpeed = 2.0f;
     [SerializeField]
     private float jumpHeight = 1.0f;
     [SerializeField]
     private float gravityValue = -9.81f;
+
+    [SerializeField] private float dealDamage;
     
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -28,9 +30,14 @@ public class PlayerScript : MonoBehaviour
     private bool pickUp = false;
     public bool hasItem = false;
 
+    #region PunchRegion
+    private PunchingTrigger punchTrig;
+    #endregion
+    
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
+        punchTrig = GetComponentInChildren<PunchingTrigger>();
     }
 
     #region INPUTSYSTEMFUNCTIONS
@@ -98,6 +105,11 @@ public class PlayerScript : MonoBehaviour
             StartCoroutine(PunchBoolSet());
             attack = false;
         }
+
+        if (punchTrig.isHittingEnemy)
+        {
+            DealDamage();
+        }
     }
 
     IEnumerator PunchBoolSet()
@@ -105,4 +117,13 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("PunchTrigger", false);
     }
+    
+    #region DAMAGE_DEALER
+
+    void DealDamage()
+    {
+        Debug.Log("dealing damage");
+    }
+    
+    #endregion 
 }
