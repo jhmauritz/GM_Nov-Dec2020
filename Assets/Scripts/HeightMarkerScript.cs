@@ -9,9 +9,12 @@ public class HeightMarkerScript : MonoBehaviour
 
     private void Update()
     {
-        Vector3 center = new Vector3((playerOne.position.x + playerTwo.position.x) * 0.5f, 
+        if(playerOne != null && playerTwo != null)
+        {
+            Vector3 center = new Vector3((playerOne.position.x + playerTwo.position.x) * 0.5f, 
             transform.position.y, transform.position.z);
-
-        transform.position = center;
+            
+            transform.position = center;
+        }
     }
 }

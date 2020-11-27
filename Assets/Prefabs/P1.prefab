@@ -187,13 +187,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf9f1919bc2b2f4089060876c291a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebuggingOn: 0
   animator: {fileID: 3356565384039489857}
   fighter: {fileID: 3356565384048841345}
   playerSpeed: 10
   jumpHeight: 1
   gravityValue: -9.81
-  dealDamage: 0
-  hasItem: 0
+  dealDamage: 10
+  enemyToDamage: {fileID: 0}
+  damageDealt: 0
+  maxHealth: 100
+  currHealth: 0
 --- !u!143 &3356565383414793683
 CharacterController:
   m_ObjectHideFlags: 0
@@ -270,7 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHittingEnemy: 0
-  parent: {fileID: 3356565383414793681}
 --- !u!1001 &3356565384048874529
 PrefabInstance:
   m_ObjectHideFlags: 0

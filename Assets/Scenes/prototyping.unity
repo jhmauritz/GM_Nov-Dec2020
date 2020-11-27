@@ -524,6 +524,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P2
       objectReference: {fileID: 0}
+    - target: {fileID: 5953596999010887735, guid: a0568c7a547e3d840bdc0be3581e4905, type: 3}
+      propertyPath: isDebuggingOn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5953596999010887754, guid: a0568c7a547e3d840bdc0be3581e4905, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2177,6 +2181,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3356565383414793680, guid: 61e811e9c914def42a06c69a5174317e, type: 3}
+      propertyPath: damageDealt
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3356565383414793681, guid: 61e811e9c914def42a06c69a5174317e, type: 3}
       propertyPath: m_Name
       value: P1

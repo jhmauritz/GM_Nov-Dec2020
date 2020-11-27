@@ -7,9 +7,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerScript : MonoBehaviour
 {
+    public bool isDebuggingOn;
+    
     public Animator animator;
     public GameObject fighter;
 
+    [Header("Movement")]
     [SerializeField]
     private float playerSpeed = 2.0f;
     [SerializeField]
@@ -17,8 +20,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     private float gravityValue = -9.81f;
 
-    [SerializeField] private float dealDamage;
-    
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -29,17 +30,27 @@ public class PlayerScript : MonoBehaviour
     private bool attack = false;
     private bool canDealDamage = false;
     private bool pickUp = false;
-    public bool hasItem = false;
-
-    #region PunchRegion
-    private PunchingTrigger punchTrig;
-    #endregion
+    private bool hasItem = false;
     
+    private PunchingTrigger punchTrig;
+    
+    //Health and Damage variables
+    [Header("Health Components")]
+    public PlayerScript enemyToDamage;
+    [SerializeField] private float damageDealt = 10f;
+    [SerializeField] private float maxHealth = 100f;
+    [HideInInspector] public float currHealth;
+
+    #region INITIALIZATION
     private void Start()
     {
+        currHealth = maxHealth;
+        
         controller = gameObject.GetComponent<CharacterController>();
         punchTrig = GetComponentInChildren<PunchingTrigger>();
     }
+    
+    #endregion
 
     #region INPUTSYSTEMFUNCTIONS
     public void OnMove(InputAction.CallbackContext context)
@@ -110,7 +121,7 @@ public class PlayerScript : MonoBehaviour
 
         if (punchTrig.isHittingEnemy && canDealDamage)
         {
-            DealDamage();
+            DealDamage(damageDealt);
         }
     }
 
@@ -122,11 +133,32 @@ public class PlayerScript : MonoBehaviour
     
     #region DAMAGE_DEALER_AND_HEALTH
 
-    void DealDamage()
+    void DealDamage(float damageDealt)
     {
         canDealDamage = false;
-        Debug.Log("dealing damage");
+        punchTrig.isHittingEnemy = false;
+
+        if (enemyToDamage != null)
+        {
+            enemyToDamage.TakeDamage(damageDealt);
+        }
     }
-    
-    #endregion 
+
+    public void TakeDamage(float damage)
+    {
+        currHealth -= damage;
+        Debug.Log(currHealth);
+
+        if (currHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+
+    #endregion
 }
