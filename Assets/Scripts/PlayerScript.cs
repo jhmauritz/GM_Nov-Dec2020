@@ -20,6 +20,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     private float gravityValue = -9.81f;
 
+    public float mass = 3.0f;
+
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -37,11 +39,29 @@ public class PlayerScript : MonoBehaviour
     //Health and Damage variables
     [Header("Health Components")]
     public PlayerScript enemyToDamage;
+    
+    //for knockback
+    public float knockForce = 2.5f;
+    private Vector3 impact = Vector3.zero;
+
     [SerializeField] private float damageDealt = 10f;
     [SerializeField] private float maxHealth = 100f;
     [HideInInspector] public float currHealth;
 
     #region INITIALIZATION
+    
+    private void Awake()
+    {
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            for (int j = i; j < colliders.Length; j++)
+            {
+                Physics.IgnoreCollision(colliders[i], colliders[j]);
+            }
+        }
+    }
+    
     private void Start()
     {
         currHealth = maxHealth;
@@ -107,23 +127,33 @@ public class PlayerScript : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
-        
 
+        if (impact.magnitude > 0.2)
+        {
+            controller.Move(impact * Time.deltaTime);
+        }
+
+        impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
+        
         #endregion
 
+        #region UPDATE_DAMAGE_DEALING
         if (!hasItem && attack)
         {
             animator.SetBool("PunchTrigger", true);
             canDealDamage = true;
-            StartCoroutine(PunchBoolSet());
             attack = false;
+            StartCoroutine(PunchBoolSet());
         }
 
         if (punchTrig.isHittingEnemy && canDealDamage)
         {
             DealDamage(damageDealt);
         }
+        #endregion
     }
+
+    #region DAMAGE_DEALER_AND_HEALTH
 
     IEnumerator PunchBoolSet()
     {
@@ -131,8 +161,6 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("PunchTrigger", false);
     }
     
-    #region DAMAGE_DEALER_AND_HEALTH
-
     void DealDamage(float damageDealt)
     {
         canDealDamage = false;
@@ -141,13 +169,13 @@ public class PlayerScript : MonoBehaviour
         if (enemyToDamage != null)
         {
             enemyToDamage.TakeDamage(damageDealt);
+            enemyToDamage.AddImpact(enemyToDamage.transform.position * knockForce);
         }
     }
 
     public void TakeDamage(float damage)
     {
         currHealth -= damage;
-        Debug.Log(currHealth);
 
         if (currHealth <= 0)
         {
@@ -158,6 +186,18 @@ public class PlayerScript : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+    }
+
+    #endregion
+
+    #region PHYSICS_FUNCTIONS
+
+    public void AddImpact(Vector3 force)
+    {
+        var dir = force.normalized;
+        dir.y = 0.5f;
+        impact += dir.normalized * force.magnitude / mass;
+        Debug.Log("working");
     }
 
     #endregion
