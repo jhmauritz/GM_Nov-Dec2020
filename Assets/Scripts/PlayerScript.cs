@@ -27,6 +27,7 @@ public class PlayerScript : MonoBehaviour
     private bool jumped = false;
     private bool duck = false;
     private bool attack = false;
+    private bool canDealDamage = false;
     private bool pickUp = false;
     public bool hasItem = false;
 
@@ -102,11 +103,12 @@ public class PlayerScript : MonoBehaviour
         if (!hasItem && attack)
         {
             animator.SetBool("PunchTrigger", true);
+            canDealDamage = true;
             StartCoroutine(PunchBoolSet());
             attack = false;
         }
 
-        if (punchTrig.isHittingEnemy)
+        if (punchTrig.isHittingEnemy && canDealDamage)
         {
             DealDamage();
         }
@@ -118,10 +120,11 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("PunchTrigger", false);
     }
     
-    #region DAMAGE_DEALER
+    #region DAMAGE_DEALER_AND_HEALTH
 
     void DealDamage()
     {
+        canDealDamage = false;
         Debug.Log("dealing damage");
     }
     
