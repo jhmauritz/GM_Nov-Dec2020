@@ -48,6 +48,12 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     [HideInInspector] public float currHealth;
 
+    [Header("Item PickUp")] 
+    [SerializeField] private Transform slot;
+    private bool isEquiped = false;
+    public ItemScript itemScript; 
+    public bool isPlayerNearItem = false;
+
     #region INITIALIZATION
     
     private void Awake()
@@ -151,6 +157,23 @@ public class PlayerScript : MonoBehaviour
             DealDamage(damageDealt);
         }
         #endregion
+
+        #region ITEM_MANAGEMENT
+        
+            if (pickUp)
+            {
+                if (isEquiped)
+                {
+                    Dropitem(itemScript);
+                }
+                else if (!isEquiped && isPlayerNearItem)
+                {
+                    PickItem(itemScript);
+                }
+
+                pickUp = false;
+            }
+            #endregion
     }
 
     #region DAMAGE_DEALER_AND_HEALTH
@@ -198,6 +221,37 @@ public class PlayerScript : MonoBehaviour
         dir.y = 0.5f;
         impact += dir.normalized * force.magnitude / mass;
         impact.z = 0.0f;
+    }
+
+    #endregion
+
+    #region ITEM_MANAGMENT
+
+    private void PickItem(ItemScript itemScriptTemp)
+    {
+        isEquiped = true;
+        itemScript = itemScriptTemp;
+
+        itemScriptTemp.Rb.isKinematic = true;
+        itemScriptTemp.Rb.velocity = Vector3.zero;
+        itemScriptTemp.Rb.angularVelocity = Vector3.zero;
+        
+        itemScriptTemp.transform.SetParent(slot);
+        //for some reason the parent is being unset afterwords
+
+        itemScriptTemp.transform.localPosition = Vector3.zero;
+        itemScriptTemp.transform.localEulerAngles = Vector3.zero;
+    }
+
+    private void Dropitem(ItemScript itemScriptTemp)
+    {
+        isEquiped = false;
+        itemScript = null;
+        
+        itemScriptTemp.Rb.isKinematic = false;
+        itemScriptTemp.transform.SetParent(null);
+        
+        itemScriptTemp.Rb.AddForce(itemScriptTemp.transform.forward * 2, ForceMode.VelocityChange);
     }
 
     #endregion

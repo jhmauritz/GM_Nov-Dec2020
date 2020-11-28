@@ -40,7 +40,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""id"": ""cb218871-ff38-4cd7-94f6-e2384f6ffafb"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Jump"",
