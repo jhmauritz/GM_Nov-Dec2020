@@ -197,7 +197,7 @@ public class PlayerScript : MonoBehaviour
         var dir = force.normalized;
         dir.y = 0.5f;
         impact += dir.normalized * force.magnitude / mass;
-        Debug.Log("working");
+        impact.z = 0.0f;
     }
 
     #endregion
