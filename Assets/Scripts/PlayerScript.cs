@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerScript : MonoBehaviour
 {
+    #region VARIABLES
     public bool isDebuggingOn;
     
     public Animator animator;
@@ -55,6 +56,7 @@ public class PlayerScript : MonoBehaviour
     private bool isEquiped = false;
     public ItemScript itemScript; 
     public bool isPlayerNearItem = false;
+    #endregion
 
     #region INITIALIZATION
     
@@ -206,12 +208,21 @@ public class PlayerScript : MonoBehaviour
 
         if (currHealth <= 0)
         {
-            Die();
+            Invoke("Die", 1.0f);
         }
     }
 
     void Die()
     {
+        if (gameObject.CompareTag("PlayerOne"))
+        {
+            UIManager.playerTwoWins++;
+        }
+        else if (gameObject.CompareTag("PlayerTwo"))
+        {
+            UIManager.playerOneWins++;
+        }
+        
         Destroy(gameObject);
     }
 

@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 4663356835415757473}
   m_Layer: 0
   m_Name: P1
-  m_TagString: Untagged
+  m_TagString: PlayerOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,11 +228,12 @@ MonoBehaviour:
   gravityValue: -9.81
   mass: 3
   enemyToDamage: {fileID: 0}
-  knockForce: 2.5
-  damageDealt: 0
+  knockForcePointer: 2.5
+  damageDealtPointer: 10
   maxHealth: 100
   currHealth: 0
   slot: {fileID: 3356565384049004161}
+  itemScript: {fileID: 0}
   isPlayerNearItem: 0
 --- !u!54 &4663356835415757473
 Rigidbody:
