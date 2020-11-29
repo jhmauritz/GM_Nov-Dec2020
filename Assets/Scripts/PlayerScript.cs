@@ -41,10 +41,12 @@ public class PlayerScript : MonoBehaviour
     public PlayerScript enemyToDamage;
     
     //for knockback
-    public float knockForce = 2.5f;
+    public float knockForcePointer = 2.5f;
+    private float knockForcePrivate;
     private Vector3 impact = Vector3.zero;
 
-    [SerializeField] private float damageDealt = 10f;
+    [SerializeField] private float damageDealtPointer = 10f;
+    private float damageDealtPrivate;
     [SerializeField] private float maxHealth = 100f;
     [HideInInspector] public float currHealth;
 
@@ -71,6 +73,8 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         currHealth = maxHealth;
+        knockForcePrivate = knockForcePointer;
+        damageDealtPrivate = damageDealtPointer;
         
         controller = gameObject.GetComponent<CharacterController>();
         punchTrig = GetComponentInChildren<PunchingTrigger>();
@@ -154,7 +158,7 @@ public class PlayerScript : MonoBehaviour
 
         if (punchTrig.isHittingEnemy && canDealDamage)
         {
-            DealDamage(damageDealt);
+            DealDamage(damageDealtPrivate);
         }
         #endregion
 
@@ -192,7 +196,7 @@ public class PlayerScript : MonoBehaviour
         if (enemyToDamage != null)
         {
             enemyToDamage.TakeDamage(damageDealt);
-            enemyToDamage.AddImpact(enemyToDamage.transform.position * knockForce);
+            enemyToDamage.AddImpact(enemyToDamage.transform.position * knockForcePrivate);
         }
     }
 
@@ -232,6 +236,9 @@ public class PlayerScript : MonoBehaviour
         isEquiped = true;
         itemScript = itemScriptTemp;
 
+        damageDealtPrivate = itemScriptTemp.damage;
+        knockForcePrivate = itemScriptTemp.knockbackForce;
+
         itemScriptTemp.Rb.isKinematic = true;
         itemScriptTemp.Rb.velocity = Vector3.zero;
         itemScriptTemp.Rb.angularVelocity = Vector3.zero;
@@ -247,6 +254,9 @@ public class PlayerScript : MonoBehaviour
     {
         isEquiped = false;
         itemScript = null;
+
+        damageDealtPrivate = damageDealtPointer;
+        knockForcePrivate = knockForcePointer;
         
         itemScriptTemp.Rb.isKinematic = false;
         itemScriptTemp.transform.SetParent(null);

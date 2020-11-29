@@ -7,6 +7,8 @@ public class ItemScript : MonoBehaviour
 {
     private Rigidbody rb;
     public Rigidbody Rb => rb;
+    public float knockbackForce;
+    public float damage;
 
     private void Awake()
     {
