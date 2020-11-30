@@ -56,6 +56,9 @@ public class PlayerScript : MonoBehaviour
     private bool isEquiped = false;
     public ItemScript itemScript; 
     public bool isPlayerNearItem = false;
+
+    [Header("Effects")] 
+    public GameObject bloodEffects;
     #endregion
 
     #region INITIALIZATION
@@ -210,6 +213,11 @@ public class PlayerScript : MonoBehaviour
         {
             Invoke("Die", 1.0f);
         }
+    }
+
+    void CreateBloodEffects(Vector3 pos, Quaternion rot)
+    {
+        Instantiate(bloodEffects, pos, rot);
     }
 
     void Die()
