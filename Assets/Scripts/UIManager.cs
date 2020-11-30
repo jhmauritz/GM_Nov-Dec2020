@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,5 +28,15 @@ public class UIManager : MonoBehaviour
     {
         playerOneText.text = playerOneWins.ToString("F0");
         playerTwoText.text = playerTwoWins.ToString("F0");
+
+        if (playerOne == null || playerTwo == null)
+        {
+            Invoke("ReloadScene" , 1.0f);
+        }
+    }
+
+    void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

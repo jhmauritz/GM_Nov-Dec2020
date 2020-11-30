@@ -19,6 +19,8 @@ namespace Lowscope.Saving.Components
         private void Start()
         {
             string checkForSave = SaveMaster.GetString("scene");
+            UIManager.playerOneWins = 0;
+            UIManager.playerTwoWins = 0;
 
             if (string.IsNullOrEmpty(checkForSave))
             {
