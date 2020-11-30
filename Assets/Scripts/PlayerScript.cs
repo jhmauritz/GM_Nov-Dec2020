@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerScript : MonoBehaviour
 {
+    #region VARIABLES
     public bool isDebuggingOn;
     
     public Animator animator;
@@ -41,12 +42,21 @@ public class PlayerScript : MonoBehaviour
     public PlayerScript enemyToDamage;
     
     //for knockback
-    public float knockForce = 2.5f;
+    public float knockForcePointer = 2.5f;
+    private float knockForcePrivate;
     private Vector3 impact = Vector3.zero;
 
-    [SerializeField] private float damageDealt = 10f;
+    [SerializeField] private float damageDealtPointer = 10f;
+    private float damageDealtPrivate;
     [SerializeField] private float maxHealth = 100f;
     [HideInInspector] public float currHealth;
+
+    [Header("Item PickUp")] 
+    [SerializeField] private Transform slot;
+    private bool isEquiped = false;
+    public ItemScript itemScript; 
+    public bool isPlayerNearItem = false;
+    #endregion
 
     #region INITIALIZATION
     
@@ -65,6 +75,8 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         currHealth = maxHealth;
+        knockForcePrivate = knockForcePointer;
+        damageDealtPrivate = damageDealtPointer;
         
         controller = gameObject.GetComponent<CharacterController>();
         punchTrig = GetComponentInChildren<PunchingTrigger>();
@@ -148,9 +160,26 @@ public class PlayerScript : MonoBehaviour
 
         if (punchTrig.isHittingEnemy && canDealDamage)
         {
-            DealDamage(damageDealt);
+            DealDamage(damageDealtPrivate);
         }
         #endregion
+
+        #region ITEM_MANAGEMENT
+        
+            if (pickUp)
+            {
+                if (isEquiped)
+                {
+                    Dropitem(itemScript);
+                }
+                else if (!isEquiped && isPlayerNearItem)
+                {
+                    PickItem(itemScript);
+                }
+
+                pickUp = false;
+            }
+            #endregion
     }
 
     #region DAMAGE_DEALER_AND_HEALTH
@@ -169,7 +198,7 @@ public class PlayerScript : MonoBehaviour
         if (enemyToDamage != null)
         {
             enemyToDamage.TakeDamage(damageDealt);
-            enemyToDamage.AddImpact(enemyToDamage.transform.position * knockForce);
+            enemyToDamage.AddImpact(enemyToDamage.transform.position * knockForcePrivate);
         }
     }
 
@@ -179,12 +208,21 @@ public class PlayerScript : MonoBehaviour
 
         if (currHealth <= 0)
         {
-            Die();
+            Invoke("Die", 1.0f);
         }
     }
 
     void Die()
     {
+        if (gameObject.CompareTag("PlayerOne"))
+        {
+            UIManager.playerTwoWins++;
+        }
+        else if (gameObject.CompareTag("PlayerTwo"))
+        {
+            UIManager.playerOneWins++;
+        }
+        
         Destroy(gameObject);
     }
 
@@ -198,6 +236,43 @@ public class PlayerScript : MonoBehaviour
         dir.y = 0.5f;
         impact += dir.normalized * force.magnitude / mass;
         impact.z = 0.0f;
+    }
+
+    #endregion
+
+    #region ITEM_MANAGMENT
+
+    private void PickItem(ItemScript itemScriptTemp)
+    {
+        isEquiped = true;
+        itemScript = itemScriptTemp;
+
+        damageDealtPrivate = itemScriptTemp.damage;
+        knockForcePrivate = itemScriptTemp.knockbackForce;
+
+        itemScriptTemp.Rb.isKinematic = true;
+        itemScriptTemp.Rb.velocity = Vector3.zero;
+        itemScriptTemp.Rb.angularVelocity = Vector3.zero;
+        
+        itemScriptTemp.transform.SetParent(slot);
+        //for some reason the parent is being unset afterwords
+
+        itemScriptTemp.transform.localPosition = Vector3.zero;
+        itemScriptTemp.transform.localEulerAngles = Vector3.zero;
+    }
+
+    private void Dropitem(ItemScript itemScriptTemp)
+    {
+        isEquiped = false;
+        itemScript = null;
+
+        damageDealtPrivate = damageDealtPointer;
+        knockForcePrivate = knockForcePointer;
+        
+        itemScriptTemp.Rb.isKinematic = false;
+        itemScriptTemp.transform.SetParent(null);
+        
+        itemScriptTemp.Rb.AddForce(itemScriptTemp.transform.forward * 2, ForceMode.VelocityChange);
     }
 
     #endregion
