@@ -141,6 +141,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
+        playerVelocity.z = 0f;
         controller.Move(playerVelocity * Time.deltaTime);
 
         if (impact.magnitude > 0.2)
@@ -148,6 +149,7 @@ public class PlayerScript : MonoBehaviour
             controller.Move(impact * Time.deltaTime);
         }
 
+        impact.z = 0f;
         impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
         
         #endregion
