@@ -63,6 +63,10 @@ public class PlayerScript : MonoBehaviour
     //timer variables
     bool startTimer = true;
     public float timer = 4f;
+    
+    //caching the starting z location
+    private float tZ;
+    private Quaternion startRot;
     #endregion
 
     #region INITIALIZATION
@@ -84,6 +88,8 @@ public class PlayerScript : MonoBehaviour
         currHealth = maxHealth;
         knockForcePrivate = knockForcePointer;
         damageDealtPrivate = damageDealtPointer;
+        tZ = transform.position.z;
+        startRot = transform.rotation;
         
         controller = gameObject.GetComponent<CharacterController>();
         punchTrig = GetComponentInChildren<PunchingTrigger>();
@@ -149,8 +155,7 @@ public class PlayerScript : MonoBehaviour
             }
 
 
-            Vector3 move = new Vector3(movementInput.x, 0, 0);
-
+            Vector3 move = new Vector3(movementInput.x, 0, 0 );
             controller.Move(move * playerSpeed * Time.deltaTime);
 
 
@@ -224,7 +229,7 @@ public class PlayerScript : MonoBehaviour
     void DealDamage(float damageDealt)
     {
         canDealDamage = false;
-        punchTrig.isHittingEnemy = false;
+        //punchTrig.isHittingEnemy = false;
 
         if (enemyToDamage != null)
         {
@@ -237,6 +242,7 @@ public class PlayerScript : MonoBehaviour
     {
         currHealth -= damage;
 
+        Debug.Log(currHealth);
         if (currHealth <= 0)
         {
             Invoke("Die", 1.0f);
@@ -272,6 +278,16 @@ public class PlayerScript : MonoBehaviour
         dir.y = 0.5f;
         impact += dir.normalized * force.magnitude / mass;
         impact.z = 0.0f;
+    }
+
+    public bool IsBetween(double testValue, double bound1, double bound2)
+    {
+        if (bound1 > bound2)
+        {
+            return testValue >= bound2 && testValue <= bound1;
+        }
+
+        return testValue >= bound1 && testValue <= bound2;
     }
 
     #endregion
