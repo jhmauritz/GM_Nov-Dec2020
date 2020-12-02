@@ -186,7 +186,14 @@ public class PlayerScript : MonoBehaviour
         #region UPDATE_DAMAGE_DEALING
         if (!hasItem && attack)
         {
-            animator.SetBool("PunchTrigger", true);
+            if (itemScript == null)
+            {
+                animator.SetBool("PunchTrigger", true);
+            }
+            else
+            {
+                animator.SetBool("AttackTrigger", true);
+            }
             canDealDamage = true;
             attack = false;
             StartCoroutine(PunchBoolSet());
@@ -221,7 +228,14 @@ public class PlayerScript : MonoBehaviour
     IEnumerator PunchBoolSet()
     {
         yield return new WaitForSeconds(0.5f);
-        animator.SetBool("PunchTrigger", false);
+        if (itemScript == null)
+        {
+            animator.SetBool("PunchTrigger", false);
+        }
+        else
+        {
+            animator.SetBool("AttackTrigger", false);
+        }
     }
     
     void DealDamage(float damageDealt)
@@ -309,6 +323,10 @@ public class PlayerScript : MonoBehaviour
 
         itemScriptTemp.transform.localPosition = Vector3.zero;
         itemScriptTemp.transform.localEulerAngles = Vector3.zero;
+
+        var euler = itemScriptTemp.transform.rotation.eulerAngles;
+        euler.x += 180;
+        itemScriptTemp.transform.rotation = Quaternion.Euler(euler);
     }
 
     private void Dropitem(ItemScript itemScriptTemp)
