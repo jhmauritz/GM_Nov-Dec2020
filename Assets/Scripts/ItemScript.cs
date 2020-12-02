@@ -10,9 +10,15 @@ public class ItemScript : MonoBehaviour
     public float knockbackForce;
     public float damage;
 
+    public float lifeTimer;
+    private Animator anim;
+
+
+    public float spawnChance;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +36,20 @@ public class ItemScript : MonoBehaviour
         {
             other.GetComponent<PlayerScript>().isPlayerNearItem = false;
             //other.GetComponent<PlayerScript>().itemScript = null;
+        }
+    }
+
+    private void Update()
+    {
+        lifeTimer -= Time.deltaTime;
+        if (lifeTimer <= 3)
+        {
+            anim.SetTrigger("LifeTrigger");
+        }
+
+        if (lifeTimer <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

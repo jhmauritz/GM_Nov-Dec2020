@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1653120926686930736}
   - component: {fileID: 1653120926686930747}
   - component: {fileID: 1653120926686930746}
+  - component: {fileID: 6954753158452501539}
   m_Layer: 0
   m_Name: ItemBase
   m_TagString: Untagged
@@ -123,7 +124,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 3
@@ -139,5 +140,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0a8188feb4bc848abc53003d80b460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackForce: 0
+  knockbackForce: 3
   damage: 100
+  lifeTimer: 5
+  spawnChance: 25
+--- !u!95 &6954753158452501539
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653120926686930745}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7dbdef783f6a13c4391f6a6f4a6373b7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

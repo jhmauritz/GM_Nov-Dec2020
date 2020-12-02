@@ -6,9 +6,12 @@ using Random = UnityEngine.Random;
 
 public class SpawningItems : MonoBehaviour
 {
-    public GameObject[] items;
-    public float[] probability;
-    private float[] cumulative;
+    [Header("these arrays ARE PARALLEL!!")]
+    
+    [Tooltip("item you want to spawn")]
+    public ItemScript[] items;
+    [Tooltip("places to spawn")]
+    public Transform[] spawnPoints;
 
     private bool startTimer = true;
     public float timerPointer;
@@ -21,23 +24,6 @@ public class SpawningItems : MonoBehaviour
     public float MaxY = 10;
     public float MinZ = 0;
     public float MaxZ = 10;
-    
-    void MakeCumulative()
-    {
-        float current = 0;
-        int itemCount = probability.Length;
-
-        for (int i = 0; i <= itemCount; i++)
-        {
-            current += probability[i];
-            cumulative[i] = current;
-        }
-
-        if (current > 1.0f)
-        {
-            Debug.Log("probability exceeds 100%");
-        }
-    }
 
     private void Start()
     {
@@ -51,38 +37,47 @@ public class SpawningItems : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0f)
             {
-                timer = timerPointer;
-                MakeCumulative();
-                Instantiate(GetRandomItem(), RandomSpawnLocation(), 
+                Instantiate(RandomItem(), RandomSpawnLocation(), 
                     Quaternion.identity);
+                timer = timerPointer;
             }
         }
     }
 
     Vector3 RandomSpawnLocation()
     {
-        float x = Random.Range(MinX, MaxX);
-        float y = Random.Range(MinY, MaxY);
-        float z = Random.Range(MinZ, MaxZ);
-        
-        Vector3 randLoc = new Vector3(x, y, z);
-
-        return randLoc;
+        int index = Random.Range(0, spawnPoints.Length);
+        return spawnPoints[index].position;
     }
 
-    GameObject GetRandomItem()
+    GameObject RandomItem()
     {
-        float rnd = Random.Range(0, 1.0f);
-        int itemCount = cumulative.Length;
+        float sum = 0f;
+        float randomWeight = 0;
 
-        for (int i = 0; i <= itemCount; i++)
+        foreach (var item in items)
         {
-            if (rnd <= cumulative[i])
+            sum += item.spawnChance;
+        }
+
+        do
+        {
+            if (sum == 0)
             {
-                return items[i];
+                return null;
             }
+
+            randomWeight = Random.Range(0, sum);
+        } while (randomWeight == sum);
+
+        foreach (var item in items)
+        {
+            if (randomWeight < item.spawnChance)
+                return item.gameObject;
+            randomWeight -= item.spawnChance;
         }
 
         return null;
     }
+    
 }
