@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 5953596999010887752}
   m_Layer: 0
   m_Name: P2
-  m_TagString: Untagged
+  m_TagString: PlayerTwo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,13 +105,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf9f1919bc2b2f4089060876c291a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebuggingOn: 0
   animator: {fileID: 5953596999384307177}
   fighter: {fileID: 5953596999393830441}
   playerSpeed: 10
   jumpHeight: 1
   gravityValue: -9.81
-  dealDamage: 0
-  hasItem: 0
+  mass: 3
+  enemyToDamage: {fileID: 0}
+  knockForcePointer: 2.5
+  damageDealtPointer: 10
+  maxHealth: 100
+  currHealth: 0
+  slot: {fileID: 0}
+  itemScript: {fileID: 0}
+  isPlayerNearItem: 0
+  bloodEffects: {fileID: 0}
+  timer: 4
 --- !u!114 &5953596999010887753
 MonoBehaviour:
   m_ObjectHideFlags: 0
