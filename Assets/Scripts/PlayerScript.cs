@@ -48,7 +48,7 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] private float damageDealtPointer = 10f;
     private float damageDealtPrivate;
-    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] public float maxHealth = 100f;
     [HideInInspector] public float currHealth;
 
     [Header("Item PickUp")] 
@@ -253,6 +253,7 @@ public class PlayerScript : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currHealth -= damage;
+        TransitionController.sum -= damage;
 
         Debug.Log(currHealth);
         if (currHealth <= 0)
@@ -326,6 +327,7 @@ public class PlayerScript : MonoBehaviour
 
         var euler = itemScriptTemp.transform.rotation.eulerAngles;
         euler.x += 180;
+        euler.y += 180;
         itemScriptTemp.transform.rotation = Quaternion.Euler(euler);
     }
 
