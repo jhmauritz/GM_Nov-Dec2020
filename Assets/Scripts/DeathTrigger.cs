@@ -10,7 +10,7 @@ public class DeathTrigger : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerScript>())
         {
             other.gameObject.GetComponent<PlayerScript>().TakeDamage(
-                other.gameObject.GetComponent<PlayerScript>().currHealth);
+                other.gameObject.GetComponent<PlayerScript>().health);
         }
     }
 }

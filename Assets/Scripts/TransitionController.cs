@@ -20,7 +20,7 @@ public class TransitionController : MonoBehaviour
     {
         for (int i = 0; i < players.Length; i++)
         {
-            if (players[i].currHealth <= numberLessThanToTransition)
+            if (players[i].health <= numberLessThanToTransition)
             {
                 Debug.Log("transition");
                 break;

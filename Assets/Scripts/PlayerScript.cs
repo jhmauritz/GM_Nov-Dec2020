@@ -48,8 +48,8 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] private float damageDealtPointer = 10f;
     private float damageDealtPrivate;
-    [SerializeField] public float maxHealth = 100f;
-    [HideInInspector] public float currHealth;
+    public FloatValue maxHealth;
+    [SerializeField] public float health;
 
     [Header("Item PickUp")] 
     [SerializeField] private Transform slot;
@@ -73,6 +73,8 @@ public class PlayerScript : MonoBehaviour
     
     private void Awake()
     {
+        health = maxHealth.initialValue;
+
         Collider[] colliders = GetComponentsInChildren<Collider>();
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -85,7 +87,7 @@ public class PlayerScript : MonoBehaviour
     
     private void Start()
     {
-        currHealth = maxHealth;
+       
         knockForcePrivate = knockForcePointer;
         damageDealtPrivate = damageDealtPointer;
         tZ = transform.position.z;
@@ -252,11 +254,11 @@ public class PlayerScript : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currHealth -= damage;
+        health -= damage;
         TransitionController.sum -= damage;
 
-        Debug.Log(currHealth);
-        if (currHealth <= 0)
+        Debug.Log(health);
+        if (health <= 0)
         {
             Invoke("Die", 1.0f);
         }
