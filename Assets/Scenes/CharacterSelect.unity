@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters:
-  - {fileID: 1267975952}
+  - {fileID: 3356565383414793681, guid: 61e811e9c914def42a06c69a5174317e, type: 3}
   - {fileID: 1933355575}
   selectedCharacter: 0
 --- !u!1 &1267975952
