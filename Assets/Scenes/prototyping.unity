@@ -571,7 +571,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25782
+  m_Name: pb_Mesh45338
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -814,7 +814,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh40680
+  m_Name: pb_Mesh45422
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1217,7 +1217,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25758
+  m_Name: pb_Mesh45312
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2441,7 +2441,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh40726
+  m_Name: pb_Mesh45466
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2687,6 +2687,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 
       objectReference: {fileID: 11400000, guid: de986a2ae8e9f7345ae9ac8447430dc4, type: 2}
+    - target: {fileID: 3356565383414793680, guid: 61e811e9c914def42a06c69a5174317e, type: 3}
+      propertyPath: bloodEffects
+      value: 
+      objectReference: {fileID: 4618031101385516951, guid: a0172541f271cba43aa8fa9931ded7aa, type: 3}
     - target: {fileID: 3356565383414793681, guid: 61e811e9c914def42a06c69a5174317e, type: 3}
       propertyPath: m_Name
       value: P1
@@ -9066,6 +9070,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 506351536831327622, guid: e6f0d82c00a678145ba66f8813f3bd69, type: 3}
+      propertyPath: bloodEffects
+      value: 
+      objectReference: {fileID: 4618031101385516951, guid: a0172541f271cba43aa8fa9931ded7aa, type: 3}
     - target: {fileID: 736022215780435959, guid: e6f0d82c00a678145ba66f8813f3bd69, type: 3}
       propertyPath: m_Name
       value: P2
