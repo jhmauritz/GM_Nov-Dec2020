@@ -16,10 +16,4 @@ public class C_LoadCharacter : MonoBehaviour
         //GameObject clone = Instantiate(prefab.spawnPoint.position, Quanternion.identity);
         label.text = prefab.name;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
