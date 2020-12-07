@@ -174,7 +174,7 @@ MonoBehaviour:
     m_ActionId: 2a8df229-903d-4ed1-96e4-aee70b2414f5
     m_ActionName: Player/Duck[/XInputControllerWindows/dpad/down,/Keyboard/s,/Keyboard/downArrow]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: KeyBoard - 1
+  m_DefaultControlScheme: KeyBoard - 2
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

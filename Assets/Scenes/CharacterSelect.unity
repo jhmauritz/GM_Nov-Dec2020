@@ -636,7 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characters:
   - {fileID: 3356565383414793681, guid: 61e811e9c914def42a06c69a5174317e, type: 3}
-  - {fileID: 1933355575}
+  - {fileID: 736022215780435959, guid: e6f0d82c00a678145ba66f8813f3bd69, type: 3}
   selectedCharacter: 0
 --- !u!1 &1267975952
 GameObject:
