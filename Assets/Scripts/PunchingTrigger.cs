@@ -13,14 +13,14 @@ public class PunchingTrigger : MonoBehaviour
     {
         parentScript = GetComponentInParent<PlayerScript>();
         
-        Collider[] colliders = GetComponentsInParent<Collider>();
+        /*Collider[] colliders = GetComponentsInParent<Collider>();
         for (int i = 0; i < colliders.Length; i++)
         {
             for (int j = i; j < colliders.Length; j++)
             {
                 Physics.IgnoreCollision(colliders[i], colliders[j]);
             }
-        }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)
