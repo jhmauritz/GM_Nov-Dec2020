@@ -230,8 +230,8 @@ MonoBehaviour:
   enemyToDamage: {fileID: 0}
   knockForcePointer: 2.5
   damageDealtPointer: 10
-  maxHealth: 100
-  currHealth: 0
+  maxHealth: {fileID: 11400000, guid: de986a2ae8e9f7345ae9ac8447430dc4, type: 2}
+  health: 0
   slot: {fileID: 7808044787493305678}
   itemScript: {fileID: 0}
   isPlayerNearItem: 0
