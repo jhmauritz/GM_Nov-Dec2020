@@ -8,11 +8,9 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     private GameObject playerOne;
-    public static int playerOneWins;
     public TextMeshProUGUI playerOneText;
     
     private GameObject playerTwo;
-    public static int playerTwoWins;
     public TextMeshProUGUI playerTwoText;
 
     private void Start()
@@ -26,8 +24,8 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        playerOneText.text = playerOneWins.ToString("F0");
-        playerTwoText.text = playerTwoWins.ToString("F0");
+        playerOneText.text = StaticHolder.PONEWINS.ToString("F0");
+        playerTwoText.text = StaticHolder.PTWOWINS.ToString("F0");
 
         if (playerOne == null || playerTwo == null)
         {

@@ -255,9 +255,6 @@ public class PlayerScript : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-        TransitionController.sum -= damage;
-
-        Debug.Log(health);
         if (health <= 0)
         {
             Invoke("Die", 1.0f);
@@ -273,11 +270,11 @@ public class PlayerScript : MonoBehaviour
     {
         if (gameObject.CompareTag("PlayerOne"))
         {
-            UIManager.playerTwoWins++;
+            StaticHolder.PTWOWINS++;
         }
         else if (gameObject.CompareTag("PlayerTwo"))
         {
-            UIManager.playerOneWins++;
+            StaticHolder.PONEWINS++;
         }
         
         Destroy(gameObject);

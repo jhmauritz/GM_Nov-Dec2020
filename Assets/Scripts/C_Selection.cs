@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class C_Selection : MonoBehaviour
 {
     public GameObject[] characters;
-    public static int selectedCharacter = 0;
+    public int selectedCharacter = 0;
 
     public void NextCharacter()
     {
@@ -28,7 +28,9 @@ public class C_Selection : MonoBehaviour
 
     public void StartGame()
     {
-        PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
+        //jesse trying something if i broke uncomment and proceed toi yell at me
+        //PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
+        StaticHolder.SELECTEDCHAR = selectedCharacter;
         UnityEngine.SceneManagement.SceneManager.LoadScene("prototyping");
     }
    

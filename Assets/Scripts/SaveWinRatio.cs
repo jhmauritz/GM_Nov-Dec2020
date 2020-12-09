@@ -19,8 +19,8 @@ namespace Lowscope.Saving.Components
         private void Start()
         {
             string checkForSave = SaveMaster.GetString("scene");
-            UIManager.playerOneWins = 0;
-            UIManager.playerTwoWins = 0;
+            StaticHolder.PONEWINS = 0;
+            StaticHolder.PTWOWINS = 0;
 
             if (string.IsNullOrEmpty(checkForSave))
             {
@@ -36,8 +36,8 @@ namespace Lowscope.Saving.Components
 
         public string OnSave()
         {
-            playerOneWins = UIManager.playerOneWins;
-            playerTwoWins = UIManager.playerTwoWins;
+            playerOneWins = StaticHolder.PONEWINS;
+            playerTwoWins = StaticHolder.PTWOWINS;
             return JsonUtility.ToJson(new SaveData
             {
                 pOneWins = playerOneWins,
@@ -50,14 +50,14 @@ namespace Lowscope.Saving.Components
             var pOneWin = JsonUtility.FromJson<SaveData>(data).pOneWins;
             var pTwoWin = JsonUtility.FromJson<SaveData>(data).pTwoWins;
 
-            UIManager.playerOneWins = pOneWin;
-            UIManager.playerTwoWins = pTwoWin;
+            StaticHolder.PONEWINS = pOneWin;
+            StaticHolder.PTWOWINS = pTwoWin;
         }
 
         public bool OnSaveCondition()
         {
-            return playerOneWins != UIManager.playerOneWins ||
-                   playerTwoWins != UIManager.playerTwoWins;
+            return playerOneWins != StaticHolder.PONEWINS ||
+                   playerTwoWins != StaticHolder.PTWOWINS;
         }
     }
     

@@ -8,8 +8,6 @@ public class SC_MainMenu : MonoBehaviour
     public GameObject CreditsMenu;
     public GameObject HowToMenu;
 
-    public static int gameMode = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +16,13 @@ public class SC_MainMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        gameMode = 1;
+        StaticHolder.GAMEMODE = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterSelect");
     }
 
     public void MultiplayerButton()
     {
-        gameMode = 2;
+        StaticHolder.GAMEMODE = 2;
         UnityEngine.SceneManagement.SceneManager.LoadScene("prototyping");
     }
 
