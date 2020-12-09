@@ -16,5 +16,9 @@ public class C_LoadCharacter : MonoBehaviour
         //GameObject clone = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
         label.text = prefab.name;
         Debug.Log("Player is selected");
+        
+        //jesse wrote this (we can have it so they can pick keyboard or mouse if time permits,
+        //but this will make sure they are using the main first person controls
+        prefab.GetComponent<PlayerInputs>();
     }
 }

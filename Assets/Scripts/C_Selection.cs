@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class C_Selection : MonoBehaviour
 {
     public GameObject[] characters;
-    public int selectedCharacter = 0;
+    public static int selectedCharacter = 0;
 
     public void NextCharacter()
     {
