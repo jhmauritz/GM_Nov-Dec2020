@@ -16,7 +16,14 @@ public class SC_MainMenu : MonoBehaviour
 
     public void PlayButton()
     {
+        StaticHolder.GAMEMODE = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterSelect");
+    }
+
+    public void MultiplayerButton()
+    {
+        StaticHolder.GAMEMODE = 2;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("prototyping");
     }
 
     public void CreditsButton()

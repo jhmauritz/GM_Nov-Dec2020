@@ -14,7 +14,6 @@ public class TransitionController : MonoBehaviour
 
 
     public static bool isTransition;
-    public static float sum;
 
     [SerializeField] private CinemachineVirtualCamera vcam1; // happy world
     [SerializeField] private CinemachineVirtualCamera vcam2; // hell world
